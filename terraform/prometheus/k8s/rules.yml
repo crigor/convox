@@ -1,0 +1,11 @@
+groups:
+  - name: system
+    rules:
+      - record: convox:system:cluster:cpu:reservation
+        expr: sum(kube_pod_container_resource_requests_cpu_cores)/sum(kube_node_status_capacity_cpu_cores)
+      - record: convox:system:cluster:cpu:utilization
+        expr: sum(rate(container_cpu_usage_seconds_total{container_name="",pod_name!=""}[1m])) / sum(machine_cpu_cores)
+      - record: convox:system:cluster:mem:reservation
+        expr: sum(kube_pod_container_resource_requests_memory_bytes)/sum(kube_node_status_capacity_memory_bytes)
+      - record: convox:system:cluster:mem:utilization
+        expr: sum(container_memory_usage_bytes{container_name="",pod_name!=""}) / sum(machine_memory_bytes)
