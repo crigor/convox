@@ -164,6 +164,11 @@ resource "kubernetes_service" "state" {
   metadata {
     namespace = var.namespace
     name      = "kube-state-metrics"
+
+    annotations = {
+      "prometheus.io/scrape" = "true",
+      "prometheus.io/port"   = "8080",
+    }
   }
 
   spec {
