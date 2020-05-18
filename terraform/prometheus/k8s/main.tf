@@ -165,7 +165,7 @@ resource "kubernetes_service" "prometheus" {
   }
 
   spec {
-    type = "LoadBalancer"
+    type = "ClusterIP"
 
     selector = {
       app = "prometheus"
